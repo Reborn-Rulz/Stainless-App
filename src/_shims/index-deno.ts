@@ -79,7 +79,7 @@ export function getDefaultAgent(url: string) {
 }
 export function fileFromPath() {
   throw new Error(
-    'The `fileFromPath` function is only supported in Node. See the README for more details: https://www.github.com/stainless-sdks/worker-node#file-uploads',
+    'The `fileFromPath` function is only supported in Node. See the README for more details: https://www.github.com/Reborn-Rulz/Stainless-App#file-uploads',
   );
 }
 
@@ -108,3 +108,5 @@ export declare class FsReadStream extends Readable {
 const _ReadableStream = ReadableStream;
 type _ReadableStream = ReadableStream;
 export { _ReadableStream as ReadableStream };
+
+export const init = () => {};

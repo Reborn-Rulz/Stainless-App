@@ -148,7 +148,6 @@ export class Pets extends APIResource {
    * const apiResponse = await client.pets.uploadImage(
    *   0,
    *   fs.createReadStream('path/to/file'),
-   *   fs.createReadStream('path/to/file'),
    * );
    * ```
    */
@@ -175,7 +174,7 @@ export class Pets extends APIResource {
     const { additionalMetadata } = params ?? {};
     return this._client.post(`/pet/${petId}/uploadImage`, {
       query: { additionalMetadata },
-      body,
+      body: image,
       ...options,
       headers: { 'Content-Type': 'application/octet-stream', ...options?.headers },
       __binaryRequest: true,
@@ -314,7 +313,12 @@ export interface PetUpdateByIDParams {
   status?: string;
 }
 
-export type PetUploadImageParams = string | ArrayBufferView | ArrayBuffer | BlobLike;
+export interface PetUploadImageParams {
+  /**
+   * Query param: Additional Metadata
+   */
+  additionalMetadata?: string;
+}
 
 export declare namespace Pets {
   export {

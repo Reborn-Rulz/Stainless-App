@@ -6,16 +6,13 @@ This library provides convenient access to the Petstore REST API from server-sid
 
 The REST API documentation can be found on [app.stainlessapi.com](https://app.stainlessapi.com/docs). The full API of this library can be found in [api.md](api.md).
 
-It is generated with [Stainless](https://www.stainlessapi.com/).
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/worker-node.git
+npm install worker
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install worker`
 
 ## Usage
 
@@ -29,13 +26,9 @@ const client = new Petstore({
   apiKey: process.env['PETSTORE_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const order = await client.store.createOrder({ petId: 1, quantity: 1, status: 'placed' });
+const order = await client.store.createOrder({ petId: 1, quantity: 1, status: 'placed' });
 
-  console.log(order.id);
-}
-
-main();
+console.log(order.id);
 ```
 
 ### Request & Response types
@@ -50,11 +43,7 @@ const client = new Petstore({
   apiKey: process.env['PETSTORE_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const response: Petstore.StoreInventoryResponse = await client.store.inventory();
-}
-
-main();
+const response: Petstore.StoreInventoryResponse = await client.store.inventory();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -67,22 +56,18 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const response = await client.store.inventory().catch(async (err) => {
-    if (err instanceof Petstore.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const response = await client.store.inventory().catch(async (err) => {
+  if (err instanceof Petstore.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
@@ -218,7 +203,7 @@ import Petstore from 'worker';
 ```
 
 To do the inverse, add `import "worker/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/worker-node/tree/main/src/_shims#readme)).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/Reborn-Rulz/Stainless-App/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
 
@@ -274,7 +259,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/worker-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/Reborn-Rulz/Stainless-App/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 

@@ -49,6 +49,8 @@ export interface ClientOptions {
    *
    * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
    * much longer than this timeout before the promise succeeds or fails.
+   *
+   * @unit milliseconds
    */
   timeout?: number | undefined;
 
@@ -132,6 +134,7 @@ export class Petstore extends Core.APIClient {
 
     super({
       baseURL: options.baseURL!,
+      baseURLOverridden: baseURL ? baseURL !== 'https://petstore3.swagger.io/api/v3' : false,
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
@@ -146,6 +149,13 @@ export class Petstore extends Core.APIClient {
   pets: API.Pets = new API.Pets(this);
   store: API.Store = new API.Store(this);
   user: API.UserResource = new API.UserResource(this);
+
+  /**
+   * Check whether the base URL is set to its default.
+   */
+  #baseURLOverridden(): boolean {
+    return this.baseURL !== 'https://petstore3.swagger.io/api/v3';
+  }
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -190,6 +200,7 @@ export class Petstore extends Core.APIClient {
 Petstore.Pets = Pets;
 Petstore.Store = Store;
 Petstore.UserResource = UserResource;
+
 export declare namespace Petstore {
   export type RequestOptions = Core.RequestOptions;
 
